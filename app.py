@@ -1,12 +1,11 @@
 from flask import Flask, render_template, abort, session, redirect, request
 from flask_admin.contrib.sqla import ModelView #for viewing all data in our table
-from login import login
 from models import Posts, Authors
 # from flask_login import current_user, login_user
 # from werkzeug.security import generate_password_hash, check_password_hash
 import sqlalchemy
 from db import db
-from admin import admin
+from flask_admin import Admin
 import os
 
 base_dir = os.path.dirname(os.path.realpath(__file__)) # directory path
@@ -27,6 +26,7 @@ def create_tables():
 
 
 # admin_configurations
+admin = Admin(app) #creating an admin object
 class SecureModelView(ModelView): # overriding the modelview separately
   def is_accessible(self):
     if 'logged_in' in session:
@@ -71,25 +71,41 @@ def contact_page():
   return render_template('contact.html')  
 
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
   if request.method == 'POST':
-    username = request.form.get('username')
-    password = request.form.get('password')
+    if request.form.get('username') == Authors.username and request.form.get('password') == Authors.password: 
+      session['logged_in'] = True
+      return redirect("/admin")
+    else:
+      username = request.form.get('username')
+      password = request.form.get('password')
 
-    new_author = Authors(password=password, username=username)
-    db.session.add(new_author)
-    # db.session.commit()
-
-    if request.form.get('username') == new_author.username and request.form.get('password') == new_author.password:
+      new_author = Authors(username=username, password=password)
       db.session.add(new_author)
-      db.session.commit()
       session['logged_in'] = True 
       return redirect('/admin')  #redirect('/admin')
-    else:
-      return render_template('login.html', failed=True) 
-  return render_template('login.html') 
+      
+  return render_template('login.html', failed=True)
+  
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+  # if request.method == 'POST':
+  #   username = request.form.get('username')
+  #   password = request.form.get('password')
+
+  #   new_author = Authors(password=password, username=username)
+  #   db.session.add(new_author)
+  #   # db.session.commit()
+
+  #   if request.form.get('username') == new_author.username and request.form.get('password') == new_author.password:
+  #     db.session.add(new_author)
+  #     db.session.commit()
+  #     session['logged_in'] = True 
+  #     return redirect('/admin')  #redirect('/admin')
+  #   else:
+  #     return render_template('login.html', failed=True) 
+  # return render_template('login.html') 
 
 @app.route('/logout')
 def logout():
