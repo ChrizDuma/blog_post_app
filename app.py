@@ -85,27 +85,8 @@ def login():
       db.session.add(new_author)
       session['logged_in'] = True 
       return redirect('/admin')  #redirect('/admin')
-      
   return render_template('login.html', failed=True)
-  
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-  # if request.method == 'POST':
-  #   username = request.form.get('username')
-  #   password = request.form.get('password')
 
-  #   new_author = Authors(password=password, username=username)
-  #   db.session.add(new_author)
-  #   # db.session.commit()
-
-  #   if request.form.get('username') == new_author.username and request.form.get('password') == new_author.password:
-  #     db.session.add(new_author)
-  #     db.session.commit()
-  #     session['logged_in'] = True 
-  #     return redirect('/admin')  #redirect('/admin')
-  #   else:
-  #     return render_template('login.html', failed=True) 
-  # return render_template('login.html') 
 
 @app.route('/logout')
 def logout():
