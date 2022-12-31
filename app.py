@@ -1,10 +1,12 @@
 from flask import Flask, render_template, abort, session, redirect, request
 from flask_admin.contrib.sqla import ModelView #for viewing all data in our table
+from login import login
 from models import Posts, Authors
-from flask_admin import Admin
+# from flask_login import current_user, login_user
 # from werkzeug.security import generate_password_hash, check_password_hash
 import sqlalchemy
 from db import db
+from admin import admin
 import os
 
 base_dir = os.path.dirname(os.path.realpath(__file__)) # directory path
@@ -23,18 +25,24 @@ def create_tables():
   db.create_all()
 # ------------------------------------------
 
-# objects
-admin = Admin(app) #creating an admin object
-# -------------------------------------------------------------------
-class SecureModelView(ModelView):
+
+# admin_configurations
+class SecureModelView(ModelView): # overriding the modelview separately
   def is_accessible(self):
     if 'logged_in' in session:
       return True
     else:
       abort(403) #403 -> forbidden access 
+    # return current_user.is_authenticated
 
 admin.add_view(SecureModelView(Posts, db.session)) 
 admin.add_view(SecureModelView(Authors, db.session)) 
+
+
+# login_configurations
+# @login.user_loader
+# def load_author(author_id):
+#   return Authors.query.get(author_id)
 
 # -------------------------------------------------------------------
 # ----------------------------------------------------------------
@@ -61,6 +69,8 @@ def blog_post(slug):
 @app.route('/contact')
 def contact_page():
   return render_template('contact.html')  
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

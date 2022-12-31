@@ -1,7 +1,8 @@
 from datetime import datetime
 from db import db 
+from flask_login import UserMixin
 
-class Posts(db.Model):
+class Posts(db.Model, UserMixin):
   __tablename__ = 'posts'
   id = db.Column(db.Integer(), primary_key=True)
   title = db.Column(db.String(500), nullable=False)
@@ -11,5 +12,5 @@ class Posts(db.Model):
   date_posted = db.Column(db.DateTime(), default=datetime.utcnow())
   slug = db.Column(db.String(500), unique=True, nullable=False)
 
-  def __repr__(self):
-    return self.author_id
+  # def __repr__(self):
+  #   return self.author_id
