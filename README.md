@@ -2,12 +2,15 @@
 
 ### *This is a blog application created in python with the flask micro framework,* 
 ## DESCRIPTION
+This is a simple blogging webiste created with python/flask where anyone can register/login and create blog-posts for others to view when they visit the site...
+When starting this project i put my focus/emphasis on it being a safe space for people that have experienced spiritual awakenings or life altering experiences to express themselves and tell their stories as well as inspire others through their own journey(s).
+
 I created this project initally as a coding task for school but decided to keep working on it,
 finding ways to improve it with the help of other developers through this open source platform.
 Anyone can Register and login into the application and create blog posts in real time throught the frontend.
 Its a mini project which can still use some work in its development cycle.
 
-I can openly say that this is one of my many projects that i'm really proud of,
+I can openly say that this is one of my many projects but one that i'm really proud of,
 Feel free to fork it and make your own changes where you see fit. 
 Pull requests with possible adjustments in the code and error fixes are welcome as well.
 
