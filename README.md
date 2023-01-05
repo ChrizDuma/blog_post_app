@@ -14,7 +14,13 @@ I can openly say that this is one of my many projects but one that i'm really pr
 Feel free to fork it and make your own changes where you see fit. 
 Pull requests with possible adjustments in the code and error fixes are welcome as well.
 
-## RESOURCES
+## RESOURCES & PREREQUISITES
+Python3 is the language used in writing this program
+
+VScode is the IDE employed in the production of this program however as a developer you can feel free to use your prefered IDE
+
+GitBash has been my choice of commandline interface/terminal in this project through which a virtual environment was created and various packages such as flask and sqlalchemy where imported with the help of the 'pip install' command
+
 Assets such as the - __`Bootstrap UI`__, - __`google fonts`__ and - __`font-awesome`__ icons have been used in
 the creation of this project for the frontend development stage
 
